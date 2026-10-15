@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>coin flip</title>
+<title>kopf und zahl</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body {
@@ -55,6 +55,7 @@
     letter-spacing: -1px;
     color: #e8ebee;
     line-height: 1;
+    text-transform: lowercase;
   }
 
   main {
@@ -84,11 +85,11 @@
     transition: color 0.4s ease;
   }
 
-  .result-label.heads {
+  .result-label.kopf {
     color: #fcc02a;
   }
 
-  .result-label.tails {
+  .result-label.zahl {
     color: #5ecf7a;
   }
 
@@ -255,7 +256,7 @@
 
 <div class="app">
   <header>
-    <div class="logo">coin flip</div>
+    <div class="logo">kopf und zahl</div>
   </header>
 
   <main>
@@ -310,8 +311,13 @@ const fx = fxCanvas.getContext('2d');
 
 const FLIP_DURATION_MS = 1600;
 
+const LABELS = {
+  kopf: 'kopf',
+  zahl: 'zahl'
+};
+
 let currentRotation = 0;
-let currentFace = 'heads';
+let currentFace = 'kopf';
 let isFlipping = false;
 let streak = 0;
 let lastResult = null;
@@ -486,7 +492,7 @@ function spin() {
   isFlipping = true;
   spinBtn.disabled = true;
 
-  const result = secureRandom() < 0.5 ? 'heads' : 'tails';
+  const result = secureRandom() < 0.5 ? 'kopf' : 'zahl';
   const prevResult = lastResult;
   const prevStreak = streak;
 
@@ -523,8 +529,8 @@ function spin() {
     isFlipping = false;
     spinBtn.disabled = false;
 
-    resultLabel.textContent = result;
-    resultLabel.classList.remove('heads', 'tails');
+    resultLabel.textContent = LABELS[result];
+    resultLabel.classList.remove('kopf', 'zahl');
     resultLabel.classList.add(result);
 
     streakRow.classList.remove('hidden');
@@ -540,7 +546,7 @@ function spin() {
       emitStreakLost(prevStreak);
       startFxLoop();
     }
-  }, FLIP_DURATION_MS + 100);
+  }, FLIP_DURATION_MS + 1200);
 }
 
 spinBtn.addEventListener('click', spin);
@@ -550,4 +556,4 @@ fxResize();
 })();
 </script>
 </body>
-      </html>
+</html>
